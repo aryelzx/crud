@@ -1,10 +1,12 @@
+import { Button } from './shared/@components/ui/button'
 function App() {
-
-
   return (
     <>
-      <div className="bg-black">
+      <div className="">
         <h3 className="text-red-500 text-4xl">TESTE</h3>
+        <Button>
+          BOTAOOOO
+        </Button>
       </div>
     </>
   )
