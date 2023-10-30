@@ -1,4 +1,5 @@
 import { Button } from "../../../shared/@components/ui/button"
+import { Dialog, DialogContent, DialogTrigger } from "../../../shared/@components/ui/dialog"
 import {
   Table,
   TableBody,
@@ -47,14 +48,43 @@ function Crud() {
           SIMPLE CRUD
         </p>
         <div className="flex justify-end mr-24 w-full p-2">
-          <Button variant={"outline"} className="w-32 rounded-lg p-1 cursor-pointer delay-75 hover:border-green-500">
-            <p className="flex items-center gap-1 text-lg font-normal">
-              New User
-              <AiOutlineUserAdd />
-            </p>
-          </Button>
+          <Dialog>
+            <DialogTrigger>
+              <Button variant={"outline"} className="w-32 rounded-lg p-1 cursor-pointer delay-75 hover:border-green-500">
+                <p className="flex items-center gap-1 text-lg font-normal">
+                  New User
+                  <AiOutlineUserAdd />
+                </p>
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <div className="flex flex-col w-full items-center">
+                <form className="w-3/6 flex flex-col gap-2">
+                  <div className="flex-col flex">
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" className="p-2 h-[40px] border-[1px] border-black rounded-md" />
+                  </div>
+                  <div className="flex-col flex">
+                    <label htmlFor="Name">Name:</label>
+                    <input type="text" className="p-2 h-[40px] border-[1px] border-black rounded-md" />
+                  </div>
+                  <div className="flex-col flex">
+                    <label htmlFor="Username">Username:</label>
+                    <input type="text" className="p-2 h-[40px] border-[1px] border-black rounded-md" />
+                  </div>
+                  <div className="flex-col flex">
+                    <label htmlFor="Password">Password:</label>
+                    <input type="password" className="p-2 h-[40px] border-[1px] border-black rounded-md" />
+                  </div>
+                  <Button className="w-full bg-green-400 hover:bg-green-500 delay-75">
+                    Send
+                  </Button>
+                </form>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
-        <div className="flex justify-center border-2 border-gray-300 rounded-lg w-11/12 h-4/6">
+        <div className="flex justify-center  border-gray-300 rounded-lg w-11/12 h-4/6">
           <Table>
             <TableCaption>Users List</TableCaption>
             <TableHeader>
