@@ -1,14 +1,14 @@
 const pathBuilder = (mode: string) => {
   const production = 'https://producao.com';
-  const development = "http://localhost:3000";
+  const development = "http://localhost:8800";
 
   return mode === 'production' ? production : development;
 };
 
-process.env.MODE = 'development';
+const mode = import.meta.env.MODE;
+console.log(mode, '- MODE')
 
-const baseURL = pathBuilder(import.meta.env.MODE)
-console.log(import.meta.env.MODE)
+const baseURL = pathBuilder(mode)
 
 export { baseURL };
 
