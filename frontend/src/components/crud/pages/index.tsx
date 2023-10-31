@@ -1,5 +1,6 @@
-import { Button } from "../../../shared/@components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "../../../shared/@components/ui/dialog"
+import { useEffect, useState } from "react";
+import { Button } from "../../../shared/@components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "../../../shared/@components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -8,39 +9,37 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../../shared/@components/ui/table"
+} from "../../../shared/@components/ui/table";
 
-import { AiOutlineEdit, AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai"
+import { AiOutlineEdit, AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
+import { UsersOutputDto } from "../services/listUsers.dto";
+import { listUsersService } from "../services/listUsers.service";
 
 function Crud() {
+  const [users, setUsers] = useState<UsersOutputDto[]>([]);
+
+  const getUsers = async () => {
+    try {
+      const res = await listUsersService.execute()
+      setUsers(res)
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getUsers();
+  }, [setUsers])
+
   const mockUser = [
-    "Username",
-    "Email",
     "Name",
+    "Email",
+    "Fone",
+    "Date of birth",
+    "Profession",
     "Actions"
   ]
-  const mockUserData = [
-    {
-      email: "aryel@gmail.com",
-      username: "aryelzx",
-      name: "aryel ramos"
-    },
-    {
-      email: "duda@gmail.com",
-      username: "dudans",
-      name: "duda ramos"
-    },
-    {
-      email: "johnDoe@gmail.com",
-      username: "JohnDoe",
-      name: "John ramos"
-    },
-    {
-      email: "teste@gmail.com",
-      username: "teste",
-      name: "teste ramos"
-    },
-  ]
+
   return (
     <div className="bg-gray-400 w-screen h-screen flex justify-center items-center">
       <div className="bg-white w-5/6 h-5/6 rounded-lg flex flex-col items-center">
@@ -97,17 +96,23 @@ function Crud() {
             <TableBody>
               {/* condicionar caso tenha os dados. */}
               {
-                mockUserData.map((data) => (
+                users.map((data) => (
                   <>
                     <TableRow className="text-center">
                       <TableCell>
-                        {data.username}
+                        {data.nome}
                       </TableCell>
                       <TableCell>
                         {data.email}
                       </TableCell>
                       <TableCell>
-                        {data.name}
+                        {data.fone}
+                      </TableCell>
+                      <TableCell>
+                        {data.data_nascimento}
+                      </TableCell>
+                      <TableCell>
+                        {data.profissao}
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-3 text-2xl justify-center">
@@ -127,5 +132,5 @@ function Crud() {
   )
 }
 
-export { Crud }
+export { Crud };
 
