@@ -6,7 +6,7 @@ const getUsers = (_, res) => {
   db.query(q, (err, data) => {
     if (err) return res.json(err);
 
-    return res.status(200, { "Content-type": "text/html" }).json(data);
+    return res.status(200, { "Content-type": "application/json" }).json(data);
   });
 };
 
