@@ -1,18 +1,18 @@
 interface UsersOutputDto {
   nome: string
   email: string
-  fone: number
+  fone: string
   data_nascimento: string
   profissao: string
 }
 
-interface UsersInputtDto {
+interface UsersInputDto {
   nome: string
   email: string
-  fone: number
+  fone: string
   data_nascimento: string
   profissao: string
 }
 
-export type { UsersInputtDto, UsersOutputDto }
+export type { UsersInputDto, UsersOutputDto }
 
