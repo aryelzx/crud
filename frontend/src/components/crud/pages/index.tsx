@@ -12,6 +12,7 @@ import {
 } from "../../../shared/@components/ui/table";
 
 import { AiOutlineEdit, AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
+import { createUserService } from "../services/createUser.service";
 import { UsersOutputDto } from "../services/listUsers.dto";
 import { listUsersService } from "../services/listUsers.service";
 
@@ -27,6 +28,23 @@ function Crud() {
       console.log(error)
     }
   }
+
+  const createUser = async () => {
+    const body = {
+      nome: "maria",
+      email: "maria@teste.com",
+      fone: "999999999",
+      data_nascimento: "2004/06/25",
+      profissao: "Médica"
+    }
+    try {
+      await createUserService.execute(body)
+    }
+    catch (res) {
+      console.log(res)
+    }
+  }
+  createUser()
   useEffect(() => {
     getUsers();
   }, [setUsers])
