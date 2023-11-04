@@ -1,4 +1,5 @@
 interface UsersOutputDto {
+  id: number
   nome: string
   email: string
   fone: string
@@ -6,6 +7,9 @@ interface UsersOutputDto {
   profissao: string
 }
 
+type IDeleteUser = {
+  id: number
+}
 interface UsersInputDto {
   nome: string
   email: string
@@ -14,5 +18,5 @@ interface UsersInputDto {
   profissao: string
 }
 
-export type { UsersInputDto, UsersOutputDto }
+export type { IDeleteUser, UsersInputDto, UsersOutputDto }
 

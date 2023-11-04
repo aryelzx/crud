@@ -14,6 +14,7 @@ import {
 import { AiOutlineEdit, AiOutlineUserAdd, AiOutlineUserDelete } from "react-icons/ai";
 import { mockUser } from '../mocks/tableRow';
 import { createUserService } from "../services/createUser.service";
+import { useDeleteUserService } from "../services/deleteUser.service";
 import { UsersOutputDto } from "../services/listUsers.dto";
 import { listUsersService } from "../services/listUsers.service";
 
@@ -25,6 +26,16 @@ function Crud() {
   const [birthday, setBirthday] = useState('')
   const [profession, setProfession] = useState('')
 
+  const getUsers = async () => {
+    try {
+      const res = await listUsersService.execute()
+      setUsers(res)
+      // adicionar rest para nao dar loop no useEffect
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   const createUser = async () => {
     const body = {
@@ -41,19 +52,21 @@ function Crud() {
       console.log(res)
     }
   }
+  const deleteUser = async (params: UsersOutputDto) => {
+    try {
+      const id = params.id
+      await useDeleteUserService.execute({ id })
+    }
+    catch (err: any) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const res = await listUsersService.execute()
-        setUsers(res)
-      }
-      catch (error) {
-        console.log(error)
-      }
-    }
     getUsers();
-  }, [users])
+    //TODO consertar quando a requisição será feita!
+  }, [])
+
 
 
   return (
@@ -143,7 +156,9 @@ function Crud() {
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-3 text-2xl justify-center">
-                          <AiOutlineUserDelete className="w-10 h-8 bg-red-400 rounded-lg p-1 cursor-pointer hover:bg-red-500 " />
+                          <AiOutlineUserDelete
+                            onClick={() => deleteUser(data)}
+                            className="w-10 h-8 bg-red-400 rounded-lg p-1 cursor-pointer hover:bg-red-500 " />
                           <AiOutlineEdit className="w-10 h-8 bg-yellow-400 rounded-lg p-1 cursor-pointer hover:bg-yellow-500 " />
                         </div>
                       </TableCell>
