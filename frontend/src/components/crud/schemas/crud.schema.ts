@@ -1,10 +1,11 @@
 import { z } from "zod";
 const crudSchema = z.object({
-  name: z.string().min(3).max(255),
-  email: z.string().email(),
-  fone: z.string().min(3).max(255),
-  birthday: z.string().min(3).max(255),
-  profession: z.string().min(3).max(255),
+  nome: z.string(),
+  email: z.string(),
+  fone: z.string(),
+  data_nascimento: z.string(),
+  profissao: z.string(),
 });
 
 export { crudSchema };
+

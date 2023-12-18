@@ -10,7 +10,6 @@ import {
 } from "../../../shared/@components/ui/table";
 
 import { AiOutlineEdit, AiOutlineUserDelete } from "react-icons/ai";
-import { Checkbox } from "../../../shared/@components/ui/checkbox";
 import { CreateUserDialog } from "../components/createUserDialog";
 import { mockUser } from '../mocks/tableRow';
 import { useDeleteUserService } from "../services/deleteUser.service";
@@ -19,9 +18,6 @@ import { listUsersService } from "../services/listUsers.service";
 
 function Crud() {
   const [users, setUsers] = useState<UsersOutputDto[]>([]);
-  const [textAreaValue, setTextAreaValue] = useState('')
-  const [hgtIsChecked, setHgtIsChecked] = useState(false)
-  console.log(hgtIsChecked)
   const getUsers = async () => {
     try {
       const res = await listUsersService.execute()
@@ -33,11 +29,11 @@ function Crud() {
     }
   }
 
-
   const deleteUser = async (params: UsersOutputDto) => {
     try {
       const id = params.id
       await useDeleteUserService.execute({ id })
+      getUsers();
     }
     catch (err: any) {
       console.log(err)
@@ -101,14 +97,6 @@ function Crud() {
                   </>
                 ))
               }
-              <div className="grid w-full gap-1.5">
-                <Checkbox
-                  checked={hgtIsChecked}
-                  onClick={() => setHgtIsChecked((prev) => !prev)}
-                >
-                  <p className="text-black text-xl">HGT</p>
-                </Checkbox>
-              </div>
             </TableBody>
           </Table>
         </div>
