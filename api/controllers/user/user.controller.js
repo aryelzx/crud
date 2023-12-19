@@ -36,14 +36,15 @@ const createUser = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-  const { nome, email, fone, data_nascimento, profissao } = req.body;
+  const { id, nome, email, fone, data_nascimento, profissao } = req.body;
   const sql = `
     UPDATE crudnode.usuarios
     SET nome = '${nome}',
         email = '${email}',
         fone = '${fone}',
         data_nascimento = '${data_nascimento}',
-        profissao = '${profissao}',
+        profissao = '${profissao}'
+    WHERE id = '${id}'
   `;
   db.query(
     sql,
