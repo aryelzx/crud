@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -9,36 +9,16 @@ import {
   TableRow,
 } from "../../../shared/@components/ui/table";
 
-import { AiOutlineEdit, AiOutlineUserDelete } from "react-icons/ai";
-import { CreateUserDialog } from "../components/createUserDialog";
+import { AiOutlineUserDelete } from "react-icons/ai";
+import { CreateUserDialog } from "../components/createUserDialog copy";
+import { EditUserDialog } from "../components/editUserDialog";
+import { UserHook } from "../hooks/User";
 import { mockUser } from '../mocks/tableRow';
-import { useDeleteUserService } from "../services/deleteUser.service";
-import { UsersOutputDto } from "../services/listUsers.dto";
-import { listUsersService } from "../services/listUsers.service";
+import { usersStore } from "../store/UserStore";
 
 function Crud() {
-  const [users, setUsers] = useState<UsersOutputDto[]>([]);
-  const getUsers = async () => {
-    try {
-      const res = await listUsersService.execute()
-      setUsers(res)
-      // adicionar rest para nao dar loop no useEffect
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
-
-  const deleteUser = async (params: UsersOutputDto) => {
-    try {
-      const id = params.id
-      await useDeleteUserService.execute({ id })
-      getUsers();
-    }
-    catch (err: any) {
-      console.log(err)
-    }
-  }
+  const { deleteUser, getUsers, editUser } = UserHook();
+  const users = usersStore((state) => state.users)
 
   useEffect(() => {
     getUsers();
@@ -67,30 +47,31 @@ function Crud() {
             <TableBody>
               {/* condicionar caso tenha os dados. */}
               {
-                users.map((data) => (
+                users.map((item) => (
                   <>
                     <TableRow className="text-center">
                       <TableCell>
-                        {data.nome}
+                        {item.nome}
                       </TableCell>
                       <TableCell>
-                        {data.email}
+                        {item.email}
                       </TableCell>
                       <TableCell>
-                        {data.fone}
+                        {item.fone}
                       </TableCell>
                       <TableCell>
-                        {data.data_nascimento}
+                        {item.data_nascimento}
                       </TableCell>
                       <TableCell>
-                        {data.profissao}
+                        {item.profissao}
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-3 text-2xl justify-center">
                           <AiOutlineUserDelete
-                            onClick={() => deleteUser(data)}
-                            className="w-10 h-8 bg-red-400 rounded-lg p-1 cursor-pointer hover:bg-red-500 " />
-                          <AiOutlineEdit className="w-10 h-8 bg-yellow-400 rounded-lg p-1 cursor-pointer hover:bg-yellow-500 " />
+                            onClick={() => deleteUser(item)}
+                            className="w-10 h-8 bg-red-400 rounded-lg p-1 cursor-pointer hover:bg-red-500" />
+                          <EditUserDialog />
+
                         </div>
                       </TableCell>
                     </TableRow >

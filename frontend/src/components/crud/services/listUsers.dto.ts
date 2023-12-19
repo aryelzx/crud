@@ -7,7 +7,7 @@ interface UsersOutputDto {
   profissao: string
 }
 
-type IDeleteUser = {
+type IActionUser = {
   id: number
 }
 interface UsersInputDto {
@@ -18,5 +18,6 @@ interface UsersInputDto {
   profissao: string
 }
 
-export type { IDeleteUser, UsersInputDto, UsersOutputDto }
+
+export type { IActionUser, UsersInputDto, UsersOutputDto }
 
