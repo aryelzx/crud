@@ -4,7 +4,7 @@ import { Button } from '../../../shared/@components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../../../shared/@components/ui/form';
 import { Input } from '../../../shared/@components/ui/input';
 
-type Props = {
+interface Props {
   label: string;
   onsubmit: () => void;
   inputs: {

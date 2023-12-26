@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { UsersOutputDto } from "../services/listUsers.dto";
+import { UsersOutputDto } from "../services/user.dto";
 
 //zustand state manager
 

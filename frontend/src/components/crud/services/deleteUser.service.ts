@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { http } from "../../../api/http";
-import { IActionUser } from "./listUsers.dto";
+import { IActionUser } from "./user.dto";
 
 class DeleteUserService {
   constructor(private readonly api: AxiosInstance) { }

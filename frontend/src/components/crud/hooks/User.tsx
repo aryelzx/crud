@@ -1,8 +1,8 @@
 import { createUserService } from "../services/createUser.service";
 import { useDeleteUserService } from "../services/deleteUser.service";
 import { useEditUserService } from "../services/editUser.service";
-import { UsersInputDto, UsersOutputDto } from "../services/listUsers.dto";
 import { listUsersService } from "../services/listUsers.service";
+import { UsersInputDto, UsersOutputDto } from "../services/user.dto";
 import { usersStore } from '../store/UserStore';
 
 function UserHook() {

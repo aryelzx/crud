@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { http } from "../../../api/http";
-import { UsersInputDto, UsersOutputDto } from './listUsers.dto';
+import { UsersInputDto, UsersOutputDto } from './user.dto';
 
 class CreateUserService {
   constructor(private readonly api: AxiosInstance) { }
@@ -15,3 +15,4 @@ class CreateUserService {
 const createUserService = new CreateUserService(http)
 
 export { CreateUserService, createUserService };
+

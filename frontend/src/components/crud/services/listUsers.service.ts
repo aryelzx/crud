@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { http } from "../../../api/http";
-import { UsersOutputDto } from "./listUsers.dto";
+import { UsersOutputDto } from "./user.dto";
 
 class ListUsersService {
   constructor(private readonly api: AxiosInstance) { }
