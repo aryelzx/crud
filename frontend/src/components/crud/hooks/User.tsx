@@ -6,8 +6,7 @@ import { UsersInputDto, UsersOutputDto } from "../services/user.dto";
 import { usersStore } from '../store/UserStore';
 
 function UserHook() {
-  const [users, addUsers] = usersStore((state) => [state.users, state.addingUsers])
-  console.log(users, 'users Store')
+  const [users, addUsers,] = usersStore((state) => [state.users, state.addingUsers])
 
   const getUsers = async () => {
     try {
@@ -29,7 +28,7 @@ function UserHook() {
     }
   }
 
-  const editUser = async (params: UsersOutputDto) => {
+  const editUser = async (params: UsersInputDto) => {
     try {
       await useEditUserService.execute(params)
       getUsers()
@@ -54,7 +53,7 @@ function UserHook() {
     getUsers,
     createUser,
     deleteUser,
-    editUser
+    editUser,
   }
 }
 

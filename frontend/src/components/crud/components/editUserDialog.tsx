@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { AiOutlineEdit } from "react-icons/ai"
 import { FaUserPen } from "react-icons/fa6"
@@ -7,19 +8,42 @@ import { Dialog, DialogContent, DialogTrigger } from "../../../shared/@component
 import { UserHook } from "../hooks/User"
 import { inputs } from "../mocks/inputs"
 import { crudSchema } from "../schemas/crud.schema"
+import { UsersInputDto } from "../services/user.dto"
 import { usersStore } from "../store/UserStore"
 import { CustomForm } from "./customForm"
 
 
 function EditUserDialog() {
   const { editUser } = UserHook()
-  const editUserStore = usersStore((state) => state.editUser)
+  const [users] = usersStore((state: any) => [state.users])
 
   type CrudSchema = z.infer<typeof crudSchema>;
 
-  const form = useForm<CrudSchema>({
+  const editUserForm = useForm<CrudSchema>({
     resolver: zodResolver(crudSchema),
+    defaultValues: {
+      nome: "",
+      email: "",
+      fone: "",
+      data_nascimento: "",
+      profissao: ""
+
+    },
   })
+
+  useEffect(() => {
+    const setFormValues = (userData: UsersInputDto[]) => {
+      userData.forEach((user) => {
+        editUserForm.setValue("nome", user?.nome)
+        editUserForm.setValue("email", user?.email)
+        editUserForm.setValue("fone", user?.fone)
+        editUserForm.setValue("data_nascimento", user?.data_nascimento)
+        editUserForm.setValue("profissao", user?.profissao)
+      })
+    }
+
+    setFormValues(users)
+  }, [users, editUserForm])
 
   return (
     <>
@@ -29,7 +53,7 @@ function EditUserDialog() {
         </DialogTrigger>
         <DialogContent>
           <div className="flex flex-col w-full items-center">
-            <CustomForm form={form} inputs={inputs} label="Edit User" onsubmit={() => editUser()} icon={<FaUserPen />} />
+            <CustomForm form={editUserForm} inputs={inputs} label="Edit User" onsubmit={editUserForm.handleSubmit((data) => editUser(data))} icon={<FaUserPen />} />
           </div>
         </DialogContent>
       </Dialog>
